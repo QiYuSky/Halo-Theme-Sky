@@ -1,7 +1,7 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-sky
+  name: theme-Sky
 spec:
   displayName: Sky
   author:
@@ -11,18 +11,8 @@ spec:
   logo: "https://cdn.jsdelivr.net/gh/QiYuSky/zone-pic@main/icon202404162231981.png"
   website: "https://github.com/QiYuSky/Halo-Theme-Sky"
   repo: "https://github.com/QiYuSky/Halo-Theme-Sky.git"
-  settingName: "theme-sky-setting"
-  configMapName: "theme-sky-configMap"
-  version: "0.0.1"
+  settingName: "theme-Sky-setting"
+  configMapName: "theme-Sky-configMap"
+  version: "0.1.0"
   requires: ">=2.13.0"
-  
-  customTemplates:
-    page:
-      - name: 友链
-        description: 友情链接页
-        screenshot:
-        file: page_links.html
-      - name: 搜索
-        description: 搜索页面模板
-        screenshot:
-        file: page_search.html
+

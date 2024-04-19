@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{modules/layout :: html(head = null,content = ~{::content})}">
-<!-- 分类归档页面 -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title=${category.spec.displayName}, content = ~{::content})}">
 
 <th:block th:fragment="content">
-    <h1 th:text="${category.spec.displayName}"></h1>
-    <ul>
-        <li th:each="post : ${posts.items}">
-            <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
-        </li>
-    </ul>
+    <main class="main-view">
+        <header>
+            <h2 class="section-title">[[#{string.categories}]]</h2>
 
-    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
-    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
+            <div class="section-card">
+                <div class="section-details">
+                    <h3 class="section-count">[[${category.status.postCount}]] [[#{string.page}]]</h3>
+                    <h1 class="section-term" th:text="${category.spec.displayName}"></h1>
+                </div>
+            </div>
+        </header>
+
+        <section class="article-list--compact">
+            <article th:each="post : ${posts.items}">
+
+                <th:block th:replace="~{modules/common/article-item :: post(${post})}" />
+
+            </article>
+        </section>
+
+        <th:block th:replace="~{modules/common/pagination ::  pagination(pageType = 'category')}"></th:block>
+    </main>
+
 </th:block>
 
 </html>

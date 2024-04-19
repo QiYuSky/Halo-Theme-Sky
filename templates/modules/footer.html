@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org">
+
+<footer class="site-footer" style="width: 70%; max-width: 900px; text-align: center; margin: 15px auto;">
+    <section style="margin-top: 50px;">
+        <div class="power">
+            © [[${theme.config.base.copyright}]]
+        </div>
+        <div>
+            Built with : <b><a href="https://www.halo.run/" target="_blank" rel="noopener">Halo</a></b>
+            |
+            Theme : <b><a href="https://github.com/QiYuSky/Halo-Theme-Sky" target="_blank" rel="noopener"
+                    th:data-version="${theme.spec.version}"> Sky </a></b>
+        </div>
+    </section>
+
+    <section class="icp">
+        <th:block th:if="${! #strings.isEmpty(theme.config.base.icp_police.icp)}">
+            <a href="https://icp_police.miit.gov.cn/" th:href="${theme.config.base.icp_police.icp_link}"
+                th:text="${theme.config.base.icp_police.icp}"></a>
+        </th:block>
+
+        <th:block th:if="${! #strings.isEmpty(theme.config.base.icp_police.police)}">
+            <a href="https://icp_police.mps.gov.cn/#/query/webSearch"
+                th:href="${theme.config.base.icp_police.police_link}"
+                th:text="${theme.config.base.icp_police.police}"></a>
+        </th:block>
+
+    </section>
+</footer>
+
+</html>
