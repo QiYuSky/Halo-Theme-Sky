@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{modules/layout :: html(head = null,content = ~{::content})}">
-<!-- 独立页面 -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = ${singlePage.spec.title},content = ~{::content})}">
 
 <th:block th:fragment="content">
-    <h1 th:text="${singlePage.spec.title}"></h1>
-    <article th:utext="${singlePage.content.content}"></article>
+    <main class="main-view">
+        <article class="article-main">
+
+            <header>
+                <div class="article-image" th:if="${! #strings.isEmpty(singlePage.spec.cover)}">
+                    <a th:href="${singlePage.status.permalink}">
+                        <img th:src="${singlePage.spec.cover}" loading="lazy" th:alt="${singlePage.spec.title}">
+                    </a>
+                </div>
+
+                <div class="article-details">
+                    <div class="article-title-wrapper">
+                        <h2 class="article-title">
+                            <a th:href="@{${singlePage.status.permalink}}" th:text="${singlePage.spec.title}"></a>
+                        </h2>
+
+                        <h3 class="article-subtitle" th:text="${singlePage.status.excerpt}">
+                        </h3>
+                    </div>
+
+                    <footer class="article-time">
+                        <th:block
+                            th:replace="~{modules/common/read-time :: info(date = ${singlePage.spec.publishTime}, count = ${#strings.length(singlePage.content)})}" />
+                    </footer>
+            </header>
+
+            <section class="article-content">
+                <th:block th:utext="${singlePage.content.content}"></th:block>
+            </section>
+
+        </article>
+    </main>
 
 </th:block>
 

@@ -1,26 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="html (head,content)">
-<!-- 公共布局模板 -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="html (title,content)">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2" />
-  <title th:text="${site.title}"></title>
-
-  <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
-  <!-- <script th:src="@{/assets/js/main.js}"></script> -->
-
-  <th:block th:if="${head != null}">
-    <th:block th:replace="${head}" />
-  </th:block>
-</head>
+<th:block th:replace="~{modules/head :: head(${title})}" />
 
 <body th:style="'background-color: '+${theme.config.style.background_color ?: '#f2f2f2'}">
-  <section>
-    <h2>layout text</h2>
-    <th:block th:replace="${content}" />
-  </section>
+    <script>
+        (function () {
+            const colorSchemeKey = 'StackColorScheme';
+            const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+            const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+            if (colorSchemeItem === 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+                document.documentElement.dataset.scheme = 'dark';
+            } else {
+                document.documentElement.dataset.scheme = 'light';
+            }
+        })();
+    </script>
+
+    <section>
+        <th:block th:replace="~{modules/home/header}" />
+
+        <th:block th:replace="${content}" />
+    </section>
+
+    <section>
+        <th:block th:replace="~{modules/footer}" />
+    </section>
+
 </body>
 
 </html>

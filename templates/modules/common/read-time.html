@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<th:block th:fragment="info (date,count)">
+    <div th:if="${! #strings.isEmpty(date)}">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="24"
+            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z"></path>
+            <path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"></path>
+            <circle cx="18" cy="18" r="4"></circle>
+            <path d="M15 3v4"></path>
+            <path d="M7 3v4"></path>
+            <path d="M3 11h16"></path>
+            <path d="M18 16.496V18l1 1"></path>
+        </svg>
+        <time class="article-time--published" th:text="${#dates.format(date, 'MM-dd, yyyy')}"></time>
+
+    </div>
+
+    <div th:if="${count > 0}">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24"
+            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z"></path>
+            <circle cx="12" cy="12" r="9"></circle>
+            <polyline points="12 7 12 12 15 15"></polyline>
+        </svg>
+
+        <time class="article-time--reading">
+            <th:block th:with="readTime = ${count / 800}">
+                [[#{string.read_time}]] [[${readTime + 1}]] [[#{string.read_time_unit}]]
+            </th:block>
+        </time>
+    </div>
+</th:block>
+
+</html>

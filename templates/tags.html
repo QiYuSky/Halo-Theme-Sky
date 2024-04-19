@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{modules/layout :: html(head = null,content = ~{::content})}">
-<!-- 标签集合页面 -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = #{string.tags}, content = ~{::content})}">
 
 <th:block th:fragment="content">
-    <h1>标签</h1>
-    <ul>
-        <li th:each="tag : ${tags}">
-            <a th:href="@{${tag.status.permalink}}" th:text="${tag.spec.displayName}"></a>
-        </li>
-    </ul>
+    <main class="main-view">
+        <header>
+            <h2 class="section-title">[[#{string.tags}]]</h2>
+            <div class="subsection-list">
+                <div class="article-list--tile">
+                    <article th:each="tag : ${tags}"
+                        th:classappend="${! #strings.isEmpty(tag.spec.cover) ? 'has-image' : ''}">
+
+                        <a th:href="@{${tag.status.permalink}}">
+                            <div class="article-image" th:if="${! #strings.isEmpty(tag.spec.cover)}">
+                                <img th:src="${tag.spec.cover}" loading="lazy" th:alt="${tag.spec.displayName}">
+                            </div>
+                            <div class="article-details">
+                                <h2 class="article-title" th:text="${tag.spec.displayName}"></h2>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </header>
+    </main>
 </th:block>
 
 </html>

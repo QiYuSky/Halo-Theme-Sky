@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/assets/css/topbar.css}" />
+
+<header class="topbar" th:with="menu = ${menuFinder.getPrimary()}">
+
+    <div class="site-name">
+        <a href="/">
+            <img th:if="${not #strings.isEmpty(site.logo)}" th:src="${site.logo}" th:alt="Logo" class="w-auto h-full" />
+            <span th:if="${#strings.isEmpty(site.logo)}" th:text="${site.title}" />
+        </a>
+    </div>
+
+    <ul class="menu-list" th:if="${menu != null} and ${not #lists.isEmpty(menu.menuItems)}">
+        <li th:each="menuItem : ${menu.menuItems}" x-data="dropdown" @mouseenter="open()" @mouseleave="close()">
+            <a th:href="@{${menuItem.status.href}}" th:text="${menuItem.status.displayName}"
+                th:target="${menuItem.spec.target?.value}" />
+            <ul th:if="${not #lists.isEmpty(menuItem.children)}" @mouseenter="open()" @mouseleave="close()"
+                x-show="show" x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95">
+                <li th:each="childMenuItem : ${menuItem.children}">
+                    <a th:href="@{${childMenuItem.status.href}}" th:text="${childMenuItem.status.displayName}"
+                        th:target="${childMenuItem.spec.target?.value}" />
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</header>
+
+</html>
